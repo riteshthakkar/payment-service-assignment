@@ -6,6 +6,7 @@ This project is Spring Boot based application for managing account and performin
 - **Create Bank Accounts**: Add new bank account with initial balance
 - **Retrieve Bank Account**: Get account details for given account number
 - **Payment Transfer**: Perform idempotent payment transfer between accounts.
+- **Concurrency**: Database row level pessimistic lock to handle concurrent requests. 
 - **Exception Handling**: Handle errors such as "Account not found", "Insufficient balance" and "Duplicate transactions"
 - **Logging**:Comprehensive logging for monitoring.
 - **OpenAI Documentation**: Swagger UI for API documentation.
@@ -73,8 +74,9 @@ spring.jpa.show-sql=true
     http://<server host>:8080/swagger-ui.html
     e.g. http://localhost:8080/swagger-ui.html
 
-## Notes
+## Notes/Assumption
 - All API endpoints starts with /api/v1
 - POST /api/v1/transaction - 
   - This endpoints require **Idempotency-Key** to be put in request header.
+  - If same key is already processed, this end point will return error stating "Duplicate Pyment Transfer Request"
 - No need to create table definition in Postgres database. Table will be created automatically once application starts.
