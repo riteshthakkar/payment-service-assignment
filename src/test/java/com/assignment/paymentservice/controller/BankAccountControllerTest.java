@@ -1,10 +1,10 @@
 package com.assignment.paymentservice.controller;
 
 import com.assignment.paymentservice.dto.BankAccountRequest;
+import com.assignment.paymentservice.dto.BankAccountResponse;
 import com.assignment.paymentservice.entity.BankAccount;
 import com.assignment.paymentservice.exception.AccountAlreadyExistException;
 import com.assignment.paymentservice.exception.AccountNotFoundException;
-import com.assignment.paymentservice.exception.InsufficientBalanceException;
 import com.assignment.paymentservice.service.BankAccountService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -62,9 +62,9 @@ public class BankAccountControllerTest {
     void testGetBankAccount_success() {
         String accountNumber = "1111";
         when(bankAccountService.getAccount(anyString())).thenReturn(bankAccount);
-        ResponseEntity<BankAccount> response  = (ResponseEntity<BankAccount>) bankAccountController.getBankAccount(accountNumber);
+        ResponseEntity<BankAccountResponse> response  = (ResponseEntity<BankAccountResponse>) bankAccountController.getBankAccount(accountNumber);
         assertNotNull(response.getBody());
-        assertEquals("1111",response.getBody().getAccountNumber());
+        assertEquals(1111L,response.getBody().getAccountNumber());
         assertEquals("100.00",response.getBody().getBalance());
     }
 
